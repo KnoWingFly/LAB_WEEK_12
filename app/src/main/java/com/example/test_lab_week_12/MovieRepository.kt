@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class MovieRepository(private val movieService: MovieService) {
-    private val apiKey = "***REMOVED***"
+    private val apiKey = "KEY_REMOVED"
 
     private val movieLiveData = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>>
