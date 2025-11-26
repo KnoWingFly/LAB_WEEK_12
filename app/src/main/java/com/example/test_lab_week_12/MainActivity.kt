@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(object : MovieAdapter.MovieClickListener {
         override fun onMovieClick(movie: Movie) {
-            // Ensure DetailsActivity exists and these constants are defined there
             val intent = Intent(this@MainActivity, DetailsActivity::class.java).apply {
                 putExtra(DetailsActivity.EXTRA_TITLE, movie.title)
                 putExtra(DetailsActivity.EXTRA_RELEASE, movie.releaseDate)
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         val movieRepository = (application as MovieApplication).movieRepository
 
-        // [FIX] Initialize the MovieViewModel using the Repository
         val movieViewModel = ViewModelProvider(
             this, object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -46,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })[MovieViewModel::class.java]
 
-        // Now movieViewModel is defined, so the code below will work
         lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 launch {
