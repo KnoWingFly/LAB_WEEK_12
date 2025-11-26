@@ -1,8 +1,19 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
 }
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
+
+val myApiKey = localProperties.getProperty("MY_API_KEY")
 
 android {
     namespace = "com.example.test_lab_week_12"
@@ -16,6 +27,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "MY_API_KEY", myApiKey ?: "\"MISSING_KEY\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
